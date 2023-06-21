@@ -33,10 +33,12 @@ http_archive(
     sha256 = "59b862f50e710277f8ede96f083a5bb8d7c9595376146838b9580be90374ee1f"
 )
 
+CID="f95239adde29680236afa22b4abaf1d04234f61a"
 http_archive(
     name = "rules_cc",
-    strip_prefix = "rules_cc-main",
-    urls = ["https://github.com/bazelbuild/rules_cc/archive/main.zip"],
+    urls = ["https://github.com/bazelbuild/rules_cc/archive/%s.tar.gz" % CID],
+    # sha256 = "3d9e271e2876ba42e114c9b9bc51454e379cbf0ec9ef9d40e2ae4cec61a31b40",
+    strip_prefix = "rules_cc-%s" % CID,
 )
 
 http_archive(
@@ -189,7 +191,7 @@ http_archive(
 new_local_repository(
     name = "linux_opencv",
     build_file = "@//third_party:opencv_linux.BUILD",
-    path = "/usr",
+    path = "/usr/local",
 )
 
 new_local_repository(
