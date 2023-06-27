@@ -68,6 +68,8 @@
 #include "mediapipe/gpu/gpu_shared_data_internal.h"
 #endif  // !MEDIAPIPE_DISABLE_GPU
 
+#define LOGI LOG(INFO) << __func__ << " "
+
 namespace mediapipe {
 
 namespace {
@@ -139,6 +141,7 @@ CalculatorGraph::~CalculatorGraph() {
 
 absl::Status CalculatorGraph::InitializePacketGeneratorGraph(
     const std::map<std::string, Packet>& side_packets) {
+  LOGI << "begin";
   // Create and initialize the output side packets.
   if (!validated_graph_->OutputSidePacketInfos().empty()) {
     output_side_packets_ = absl::make_unique<OutputSidePacketImpl[]>(
@@ -168,7 +171,7 @@ absl::Status CalculatorGraph::InitializePacketGeneratorGraph(
 
 absl::Status CalculatorGraph::InitializeStreams() {
   any_packet_type_.SetAny();
-
+  LOGI << "begin";
   // Create and initialize the input streams.
   input_stream_managers_ = absl::make_unique<InputStreamManager[]>(
       validated_graph_->InputStreamInfos().size());
@@ -230,7 +233,7 @@ absl::Status CalculatorGraph::InitializeCalculatorNodes() {
   // Check if the user has specified a maximum queue size for an input stream.
   max_queue_size_ = validated_graph_->Config().max_queue_size();
   max_queue_size_ = max_queue_size_ ? max_queue_size_ : 100;
-
+  LOGI << "begin";
   // Use a local variable to avoid needing to lock errors_.
   std::vector<absl::Status> errors;
 
@@ -306,6 +309,7 @@ absl::Status CalculatorGraph::InitializeExecutors() {
   // unspecified, default_executor_options points to the
   // ThreadPoolExecutorOptions in that ExecutorConfig. Otherwise,
   // default_executor_options is null.
+  LOGI << "begin";
   const ThreadPoolExecutorOptions* default_executor_options = nullptr;
   bool use_application_thread = false;
   for (const ExecutorConfig& executor_config :
@@ -405,6 +409,7 @@ absl::Status CalculatorGraph::Initialize(
       << "validated_graph is not initialized.";
   validated_graph_ = std::move(validated_graph);
 
+  LOGI << "to do initialize.";
   MP_RETURN_IF_ERROR(InitializeExecutors());
   MP_RETURN_IF_ERROR(InitializePacketGeneratorGraph(side_packets));
   MP_RETURN_IF_ERROR(InitializeStreams());

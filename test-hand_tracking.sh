@@ -37,8 +37,10 @@ function build()
 {
     if [ ! -f ${app_path} ] ;then
         [ -d ${build_dir} ] || mkdir -p ${build_dir}
-        bash build_desktop_examples.sh -d ${build_dir} -b
+    else
+        rm -rfv ${app_path}
     fi
+    bash build_desktop_examples.sh -d ${build_dir} -b
 }
 
 function run()

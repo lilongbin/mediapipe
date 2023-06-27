@@ -27,6 +27,8 @@
 #include "mediapipe/framework/port/parse_text_proto.h"
 #include "mediapipe/framework/port/status.h"
 
+#define LOGI LOG(INFO) << __func__ << " "
+
 constexpr char kInputStream[] = "input_video";
 constexpr char kOutputStream[] = "output_video";
 constexpr char kWindowName[] = "MediaPipe";
@@ -72,7 +74,8 @@ absl::Status RunMPPGraph() {
 #if (CV_MAJOR_VERSION >= 3) && (CV_MINOR_VERSION >= 2)
     capture.set(cv::CAP_PROP_FRAME_WIDTH, 640);
     capture.set(cv::CAP_PROP_FRAME_HEIGHT, 480);
-    capture.set(cv::CAP_PROP_FPS, 30);
+    capture.set(cv::CAP_PROP_FPS, 2);
+    LOGI << "set CAP_PROP_FPS to " << capture.get(cv::CAP_PROP_FPS);
 #endif
   }
 
