@@ -397,6 +397,7 @@ absl::Status CalculatorGraph::InitializeDefaultExecutor(
   }
   MP_RETURN_IF_ERROR(
       CreateDefaultThreadPool(default_executor_options, num_threads));
+  LOGI << "CreateDefaultThreadPool " << num_threads;
   return absl::OkStatus();
 }
 
@@ -542,8 +543,11 @@ absl::Status CalculatorGraph::StartRun(
     const std::map<std::string, Packet>& stream_headers) {
   RET_CHECK(initialized_).SetNoLogging()
       << "CalculatorGraph is not initialized.";
+  LOGI << "PrepareForRun";
   MP_RETURN_IF_ERROR(PrepareForRun(extra_side_packets, stream_headers));
+  LOGI << "profiler_->Start";
   MP_RETURN_IF_ERROR(profiler_->Start(executors_[""].get()));
+  LOGI << "scheduler_->Start";
   scheduler_.Start();
   return absl::OkStatus();
 }

@@ -29,7 +29,7 @@
 
 build_dir=build
 graph_path=mediapipe/graphs/hand_tracking/hand_tracking_desktop_live.pbtxt
-graph_path=mediapipe/graphs/hand_tracking/hand_detection_desktop_live.pbtxt
+# graph_path=mediapipe/graphs/hand_tracking/hand_detection_desktop_live.pbtxt
 app_name=hand_tracking_cpu
 app_path=${build_dir}/${app_name}
 

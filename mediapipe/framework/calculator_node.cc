@@ -48,6 +48,8 @@
 #include "mediapipe/framework/tool/validate_name.h"
 #include "mediapipe/gpu/graph_support.h"
 
+#define LOGI LOG(INFO) << __func__ << " "
+
 namespace mediapipe {
 
 namespace {
@@ -145,6 +147,8 @@ absl::Status CalculatorNode::Initialize(
     return absl::InvalidArgumentError(
         "node_ref is not a calculator or packet generator");
   }
+
+  LOGI << name_;
 
   max_in_flight_ = node_config->max_in_flight();
   max_in_flight_ = max_in_flight_ ? max_in_flight_ : 1;
